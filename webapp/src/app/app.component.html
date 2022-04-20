@@ -1,0 +1,234 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo" style="vertical-align: middle;">
+      <h4 nz-typography style="color: aliceblue; text-align: center;"> Bilan présidentiel </h4>
+    </div>
+    <!-- <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item>Économique</li>
+      <li nz-menu-item>Social</li>
+      <li nz-menu-item>Environnemental</li>
+    </ul> -->
+  </nz-header>
+  <nz-content>
+    <div class="inner-content" style="margin-top: 30px;">
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <h1 nz-typography>Social</h1>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Prix des loyers" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexLoyer">
+                <nz-tab nzTitle="Variation trimestrielle des loyers"></nz-tab>
+                <nz-tab nzTitle="Indice des loyers"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexLoyer }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataLoyer[indexLoyer]"
+                [labels]="labelsLoyer"
+                [options]="lineChartOptionsTrimestriel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Coût de l'immobilier" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexImmo">
+                <nz-tab nzTitle="Prix des logements neufs (Indice)"></nz-tab>
+                <nz-tab nzTitle="Prix des logements anciens (Indice)"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexImmo }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataImmo[indexImmo]"
+                [labels]="labelsImmo[indexImmo]"
+                [options]="lineChartOptionsTrimestriel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Confiance des ménages" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexConfiance">
+                <nz-tab nzTitle="Confiance des ménages (Indice synthétique)"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexImmo }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataConfianceMenage[indexConfiance]"
+                [labels]="labelConfianceMenage[indexConfiance]"
+                [options]="lineChartOptionsMensuel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24" style="margin-top: 50px;">
+          <h1 nz-typography>Marché du travail</h1>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Taux de chômage" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexChomage">
+                <nz-tab nzTitle="Taux de chômage (global)"></nz-tab>
+                <nz-tab nzTitle="Taux de chômage (répartition par sexe)"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexLoyer }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataTauxChomage[indexChomage]"
+                [labels]="labelTauxChomage[indexChomage]"
+                [options]="lineChartOptionsTrimestriel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Salaire Minimum Interprofessionel Garanti (SMIC)" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexSmic">
+                <nz-tab nzTitle="Montant du SMIC brut (en EUROS)"></nz-tab>
+                <nz-tab nzTitle="Montant du SMIC net (en EUROS)"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexLoyer }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataSmic[indexSmic]"
+                [labels]="labelsSmic[indexSmic]"
+                [options]="lineChartOptionsMensuel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Coût du travail" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexCoutTravail">
+                <nz-tab nzTitle="Indice du coût du travail en France"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexLoyer }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataCoutTravail[indexCoutTravail]"
+                [labels]="labelCoutTravail[indexCoutTravail]"
+                [options]="lineChartOptionsTrimestriel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Indice du pouvoir d'achat (du salaire)" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexPouvoirAchatSalaire">
+                <nz-tab nzTitle="Pouvoir d'achat global (Indice)"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexLoyer }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataIndicePouvoirAchatSalaire[indexPouvoirAchatSalaire]"
+                [labels]="labelIndicePouvoirAchatSalaire[indexPouvoirAchatSalaire]"
+                [options]="lineChartOptionsAnnuel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+      <div nz-row style="margin-top: 10px;">
+        <div nz-col nzSpan="24">
+          <nz-card style="width: 100%;" nzTitle="Salaires" [nzExtra]="extraTemplate">
+            <nz-card-tab>
+              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexSalaireMoyen">
+                <nz-tab nzTitle="Salaire moyen net (répartition par sexe)"></nz-tab>
+                <nz-tab nzTitle="Salaire médian net (répartition par sexe)"></nz-tab>
+                <nz-tab nzTitle="Répartition des salaires"></nz-tab>
+                <nz-tab nzTitle="Rapports interdéciles"></nz-tab>
+              </nz-tabset>
+            </nz-card-tab>
+            Index: {{ indexLoyer }}
+            <div style="display: block;">
+              <canvas baseChart height="100"
+                [datasets]="dataSalaire[indexSalaireMoyen]"
+                [labels]="labelSalaire[indexSalaireMoyen]"
+                [options]="lineChartOptionsAnnuel"
+                [legend]="lineChartLegend"
+                [type]="lineChartType"
+                [plugins]="lineChartPlugins">
+              </canvas>
+            </div>
+          </nz-card>
+          <ng-template #extraTemplate>
+            <a>More</a>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </nz-content>
+  <nz-footer>Made with <i nz-icon nzType="heart" nzTheme="fill"></i> by Jonathan Bernales. I use NgZorro & ng2-charts.</nz-footer>
+</nz-layout>
