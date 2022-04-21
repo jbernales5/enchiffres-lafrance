@@ -22,6 +22,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 registerLocaleData(fr);
 
@@ -44,7 +46,9 @@ registerLocaleData(fr);
     NzIconModule,
     NzCardModule,
     NzTabsModule,
-    NzModalModule
+    NzModalModule,
+    NzPopoverModule,
+    NzButtonModule
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent]
