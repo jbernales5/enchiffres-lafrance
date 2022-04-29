@@ -39,7 +39,11 @@ nz-content {
     align-items: center;
   }
   h1 {
-    text-align:center;
+    text-align: center;
+  }
+  h4 {
+    text-align: center;
+    font-size: small;
   }
   nz-content {
     padding: 0 0px;

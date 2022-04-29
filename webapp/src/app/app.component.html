@@ -5,291 +5,71 @@
         La France en chiffres
         <span style="font-weight: 200;"> | Visualisons des statistiques officielles et neutres</span></h4>
     </div>
-    <!-- <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item>Économique</li>
-      <li nz-menu-item>Social</li>
-      <li nz-menu-item>Environnemental</li>
-    </ul> -->
   </nz-header>
   <nz-content>
     <div class="inner-content" style="margin-top: 30px;">
-      <div nz-row>
-        <div nz-col nzSpan="24">
-          <h1 nz-typography>Social</h1>
-        </div>
+      <div nz-col nzSpan="24">
+        <h1 nz-typography>Comment participer</h1>
       </div>
-      <div nz-row>
+      <h5 nz-typography>Plus vous êtes nombreux à proposer des sources de données, plus ce dashboard sera complet et pertinent pour des personnes de tout horizon politique !</h5>
+      <nz-alert
+        nzShowIcon
+        nzType="info"
+        nzMessage="Ce site web est Open Source"
+        [nzDescription]="welcomeDescription"
+        [nzAction]="welcomeAction"
+      >
+      </nz-alert>
+      <ng-template #welcomeDescription>
+        <p>Vous pouvez apporter vos sources de données et statistiques directement à travers le dépôt Github !</p>
+        <p>Si vous ne savez pas comment vous y prendre, n'hésitez pas à contacter par ici.</p>
+      </ng-template>
+      <ng-template #welcomeAction>
+      <nz-space nzDirection="vertical">
+        <button *nzSpaceItem nz-button nzSize="small" nzType="primary" (click)="navigateToHref('https://github.com/jbernales5/enchiffres-lafrance')">Je participe !</button>
+      </nz-space>
+    </ng-template>
+      <div *ngFor="let section of dataset" style="margin-top: 50px;">
         <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Prix des loyers" [nzExtra]="extraTemplateLoyers">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexLoyer">
-                <nz-tab nzTitle="Variation trimestrielle des loyers"></nz-tab>
-                <nz-tab nzTitle="Indice des loyers"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataLoyer[indexLoyer]"
-                [labels]="labelsLoyer"
-                [options]="lineChartOptionsTrimestriel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
+          <h1 nz-typography>{{section.sectionTitle}}</h1>
+        </div>
+        <div *ngIf="section.graphsBySubsection.length === 0">
+          <nz-alert
+            nzShowIcon
+            nzType="info"
+            nzMessage="Ça arrive bientôt !"
+            nzDescription="N'hésitez pas à proposer des sources de données et statistiques vous semblant pertinentes :)"
+          >
+          </nz-alert>
+        </div>
+        <div *ngIf="section.graphsBySubsection.length > 0">
+          <div nz-row style="margin-top: 10px;" *ngFor="let graphSubsection of section.graphsBySubsection">
+            <div nz-col nzSpan="24">
+              <nz-card style="width: 100%;" nzTitle="{{graphSubsection.subsectionTitle}}" [nzExtra]="extraTemplateLoyers">
+                <nz-card-tab>
+                  <nz-tabset nzSize="large" [(nzSelectedIndex)]="graphSubsection.selectorValue">
+                    <nz-tab *ngFor="let graph of graphSubsection.graphs;" nzTitle="{{graph.graphTitle}}"></nz-tab>
+                  </nz-tabset>
+                </nz-card-tab>
+                <div class="chartjs-graph">
+                  <canvas baseChart height="100"
+                    [datasets]="graphSubsection.graphs[graphSubsection.selectorValue].graph.graphData"
+                    [labels]="graphSubsection.graphs[graphSubsection.selectorValue].graph.graphLabels"
+                    [options]="graphSubsection.graphs[graphSubsection.selectorValue].options"
+                    [legend]="lineChartLegend"
+                    [type]="graphSubsection.graphs[graphSubsection.selectorValue].type"
+                    [plugins]="lineChartPlugins">
+                  </canvas>
+                </div>
+              </nz-card>
+              <ng-template #extraTemplateLoyers>
+                <a href="{{graphSubsection.graphs[graphSubsection.selectorValue].source}}">Source du graphe {{graphSubsection.selectorValue + 1}}</a>
+              </ng-template>
             </div>
-          </nz-card>
-          <ng-template #extraTemplateLoyers>
-            <a href="https://www.insee.fr/fr/statistiques/series/113554489">Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Coût de l'immobilier" [nzExtra]="extraTemplatePrixLogements">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexImmo">
-                <nz-tab nzTitle="Prix des logements neufs (Indice)"></nz-tab>
-                <nz-tab nzTitle="Prix des logements anciens (Indice)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataImmo[indexImmo]"
-                [labels]="labelsImmo[indexImmo]"
-                [options]="lineChartOptionsTrimestriel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplatePrixLogements>
-            <a href="https://www.insee.fr/fr/statistiques/series/105071770">Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Confiance des ménages" [nzExtra]="extraTemplateConfiance">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexConfiance">
-                <nz-tab nzTitle="Confiance des ménages (Indice synthétique)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataConfianceMenage[indexConfiance]"
-                [labels]="labelConfianceMenage[indexConfiance]"
-                [options]="lineChartOptionsMensuel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateConfiance>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/102414547'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <!-- Marché du travail -->
-      <div nz-row>
-        <div nz-col nzSpan="24" style="margin-top: 50px;">
-          <h1 nz-typography>Marché du travail</h1>
-        </div>
-      </div>
-      <div nz-row>
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Taux de chômage" [nzExtra]="extraTemplateChomage">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexChomage">
-                <nz-tab nzTitle="Taux de chômage (global)"></nz-tab>
-                <nz-tab nzTitle="Taux de chômage (répartition par sexe)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataTauxChomage[indexChomage]"
-                [labels]="labelTauxChomage[indexChomage]"
-                [options]="lineChartOptionsTrimestriel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateChomage>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/103167923'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Salaire Minimum Interprofessionel Garanti (SMIC)" [nzExtra]="extraTemplateSmic">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexSmic">
-                <nz-tab nzTitle="Montant du SMIC brut (en EUROS)"></nz-tab>
-                <nz-tab nzTitle="Montant du SMIC net (en EUROS)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataSmic[indexSmic]"
-                [labels]="labelsSmic[indexSmic]"
-                [options]="lineChartOptionsMensuel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateSmic>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/103212739'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Coût du travail" [nzExtra]="extraTemplateCoutTravail">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexCoutTravail">
-                <nz-tab nzTitle="Indice du coût du travail en France"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataCoutTravail[indexCoutTravail]"
-                [labels]="labelCoutTravail[indexCoutTravail]"
-                [options]="lineChartOptionsTrimestriel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateCoutTravail>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/113488466'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Indice du pouvoir d'achat (du salaire)" [nzExtra]="extraTemplatePouvoirAchat">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexPouvoirAchatSalaire">
-                <nz-tab nzTitle="Pouvoir d'achat global (Indice)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataIndicePouvoirAchatSalaire[indexPouvoirAchatSalaire]"
-                [labels]="labelIndicePouvoirAchatSalaire[indexPouvoirAchatSalaire]"
-                [options]="lineChartOptionsAnnuel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplatePouvoirAchat>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/103212723'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Salaires" [nzExtra]="extraTemplateSalaireMoyen">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexSalaireMoyen">
-                <nz-tab nzTitle="Salaire moyen net (répartition par sexe)"></nz-tab>
-                <nz-tab nzTitle="Salaire médian net (répartition par sexe)"></nz-tab>
-                <nz-tab nzTitle="Répartition des salaires"></nz-tab>
-                <nz-tab nzTitle="Rapports interdéciles"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataSalaire[indexSalaireMoyen]"
-                [labels]="labelSalaire[indexSalaireMoyen]"
-                [options]="lineChartOptionsAnnuel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateSalaireMoyen>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/103212723'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <!-- Entreprises -->
-      <div nz-row>
-        <div nz-col nzSpan="24" style="margin-top: 50px;">
-          <h1 nz-typography>Entreprises</h1>
-        </div>
-      </div>
-      <div nz-row>
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Création d'entreprises" [nzExtra]="extraTemplateCreationEntreprises">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexCreationEntreprises">
-                <nz-tab nzTitle="Création d'entreprises (Par type d'entreprise)"></nz-tab>
-                <nz-tab nzTitle="Création d'entreprises (Par secteur en France)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataCreationEntreprises[indexCreationEntreprises]"
-                [labels]="labelCreationEntreprises[indexCreationEntreprises]"
-                [options]="lineChartOptionsTrimestriel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateCreationEntreprises>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/102773703'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row style="margin-top: 10px;">
-        <div nz-col nzSpan="24">
-          <nz-card style="width: 100%;" nzTitle="Défaillance d'entreprises" [nzExtra]="extraTemplateDefaillanceEntreprises">
-            <nz-card-tab>
-              <nz-tabset nzSize="large" [(nzSelectedIndex)]="indexDefaillanceEntreprises">
-                <nz-tab nzTitle="Défaillance d'entreprises (Global)"></nz-tab>
-                <nz-tab nzTitle="Défaillance d'entreprises (Par secteur en France)"></nz-tab>
-              </nz-tabset>
-            </nz-card-tab>
-            <div class="chartjs-graph">
-              <canvas baseChart height="100"
-                [datasets]="dataDefaillanceEntreprises[indexDefaillanceEntreprises]"
-                [labels]="labelDefaillanceEntreprises[indexDefaillanceEntreprises]"
-                [options]="lineChartOptionsTrimestriel"
-                [legend]="lineChartLegend"
-                [type]="lineChartType"
-                [plugins]="lineChartPlugins">
-              </canvas>
-            </div>
-          </nz-card>
-          <ng-template #extraTemplateDefaillanceEntreprises>
-            <a href = 'https://www.insee.fr/fr/statistiques/series/102773703'>Source: INSEE</a>
-          </ng-template>
-        </div>
-      </div>
-      <div nz-row>
-        <div nz-col nzSpan="24" style="margin-top: 50px;">
-          <h1 nz-typography>Climat et environnement</h1>
-        </div>
-      </div>
-      <div nz-row>
-        <div nz-col nzSpan="24" style="margin-top: 10px;">
-          <nz-alert nzType="info" nzMessage="Ça arrive bientôt!"></nz-alert>
+          </div>
         </div>
       </div>
     </div>
   </nz-content>
-  <nz-footer>Made with <i nz-icon nzType="heart" nzTheme="fill"></i> by <a href="https://github.com/jbernales5">Jonathan Bernales</a>. I use NgZorro & ng2-charts.</nz-footer>
+  <nz-footer>Made with <i nz-icon nzType="heart" nzTheme="fill"></i> by <a href="https://github.com/jbernales5">Jonathan Bernales</a>. I use <a href="https://ng.ant.design">Ant Design</a> & <a href="https://github.com/valor-software/ng2-charts#readme">ng2-charts</a>.</nz-footer>
 </nz-layout>

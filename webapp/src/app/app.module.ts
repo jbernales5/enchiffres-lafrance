@@ -25,6 +25,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 
 registerLocaleData(fr);
 
@@ -50,7 +51,8 @@ registerLocaleData(fr);
     NzModalModule,
     NzPopoverModule,
     NzButtonModule,
-    NzAlertModule
+    NzAlertModule,
+    NzSpaceModule
   ],
   providers: [{ provide: NZ_I18N, useValue: fr_FR }],
   bootstrap: [AppComponent]
