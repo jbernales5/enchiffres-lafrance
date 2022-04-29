@@ -1,0 +1,68 @@
+.logo {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  margin-left: 35px;
+  align-items: center;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  padding: 0 50px;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 35px;
+  min-height: 280px;
+}
+
+.chartjs-graph {
+  display: block;
+  height: 350px;
+}
+
+@media only screen and (max-width: 800px) {
+  .logo {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    margin-left: -35px;
+    align-items: center;
+  }
+  h1 {
+    text-align: center;
+  }
+  h4 {
+    text-align: center;
+    font-size: small;
+  }
+  nz-content {
+    padding: 0 0px;
+  }
+  .inner-content {
+    background: #fff;
+    padding: 5px;
+    min-height: 280px;
+  }
+  .chartjs-graph {
+    display: block;
+    height: 300px;
+  }
+}
+
+nz-footer {
+  text-align: center;
+}
+
+
+
+
