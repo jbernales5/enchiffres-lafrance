@@ -3,7 +3,6 @@ import { ChartDataset, ChartOptions, ChartType } from 'chart.js';
 export interface DataSection {
   sectionTitle: string,
   graphsBySubsection: Subsection[]
-  graphs?: Graph[]
 }
 
 export interface Graph{
@@ -12,8 +11,8 @@ export interface Graph{
   options: ChartOptions,
   type: ChartType,
   selectorId: number,
-  dataIds: string[],
-  source: string
+  source: string,
+  dataIds?: string[]
 }
 
 export interface GraphData {
