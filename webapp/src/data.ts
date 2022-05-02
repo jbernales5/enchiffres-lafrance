@@ -654,7 +654,7 @@ const climateData: DataSection = {
   sectionTitle: 'Climat et consommation',
   graphsBySubsection: [
     {
-      subsectionTitle: 'Émissions totales de gaz à effet de serre',
+      subsectionTitle: 'Émissions par pays',
       selectorValue: 0,
       graphs: [
         {
@@ -671,7 +671,7 @@ const climateData: DataSection = {
           options: generateChartAnnotationLabels(yearlyAnnotations),
           selectorId: 1,
           type: 'line',
-          source: 'https://www.insee.fr/fr/statistiques/series/105071770'
+          source: 'https://www.climatewatchdata.org/ghg-emissions?breakBy=countries&calculation=ABSOLUTE_VALUE&chartType=line&end_year=2018&regions=FRA&source=CAIT&start_year=1990'
         },
         {
           graphTitle: 'Comparatif mondial (en méga tonnes)',
@@ -707,12 +707,12 @@ const climateData: DataSection = {
           options: generateChartAnnotationLabels(yearlyAnnotations),
           selectorId: 1,
           type: 'line',
-          source: 'https://www.insee.fr/fr/statistiques/series/105071770'
+          source: 'https://www.climatewatchdata.org/ghg-emissions?breakBy=countries&calculation=ABSOLUTE_VALUE&chartType=line&end_year=2018&regions=CHN%2CFRA%2CDEU%2CUSA%2CIND&source=CAIT&start_year=1990'
         }
       ]
     },
     {
-      subsectionTitle: 'Émissions de gaz à effet de serre par habitant',
+      subsectionTitle: 'Émissions par habitant',
       selectorValue: 0,
       graphs: [
         {
@@ -729,7 +729,7 @@ const climateData: DataSection = {
           options: generateChartAnnotationLabels(yearlyAnnotations),
           selectorId: 1,
           type: 'line',
-          source: 'https://www.insee.fr/fr/statistiques/series/105071770'
+          source: 'https://www.climatewatchdata.org/ghg-emissions?breakBy=countries&calculation=PER_CAPITA&chartType=line&end_year=2018&regions=FRA&source=CAIT&start_year=1990'
         },
         {
           graphTitle: 'Comparatif mondial (en tonnes par habitant)',
@@ -765,7 +765,37 @@ const climateData: DataSection = {
           options: generateChartAnnotationLabels(yearlyAnnotations),
           selectorId: 1,
           type: 'line',
-          source: 'https://www.insee.fr/fr/statistiques/series/105071770'
+          source: 'https://www.climatewatchdata.org/ghg-emissions?breakBy=countries&calculation=PER_CAPITA&chartType=line&end_year=2018&regions=CHN%2CFRA%2CDEU%2CUSA%2CIND&source=CAIT&start_year=1990'
+        }
+      ]
+    },
+    {
+      subsectionTitle: 'Émissions par revenus sociaux',
+      selectorValue: 0,
+      graphs: [
+        {
+          graphTitle: 'Niveau national (en tonnes par habitant)',
+          graph: {
+            graphData: [
+              {
+                data: [74.51822662, 76.57134247, 77.19274139, 75.07146454, 76.78715515, 80.55275726, 93.37911987, 92.5650177, 105.2058334, 107.6715317, 110.1528931, 104.0486908, 98.30153656, 96.28661346, 98.30448914, 93.8978653, 91.80631256, 95.83477783, 91.57962799, 81.63471222, 85.86502075, 87.8955307, 80.59265137, 80.93067169, 80.78548431, 79.62788391, 77.70527649, 79.66404724, 79.39370728, 77.49266815],
+                label: '1% les plus riches'
+              },
+              {
+                data: [30.08652306, 30.43443489, 31.76817322, 29.65024567, 29.61141586, 30.58317566, 32.1205101, 30.43750191, 32.93988419, 32.66635132, 33.17388916, 32.19706726, 31.38655281, 31.17596054, 32.01984787, 31.40368652, 30.94003105, 31.94257736, 31.0832634, 28.58717155, 28.7507019, 29.35515213, 26.99166489, 26.66426659, 25.83434868, 25.46168709, 25.05792809, 25.59220505, 25.29887009, 24.67176628],
+                label: '10% les plus riches'
+              },
+              {
+                data: [7.028079987, 7.230119705, 7.610699654, 7.064539909, 6.899000168, 6.89786005, 6.768179893, 6.635819912, 6.751679897, 6.735319614, 6.734879971, 6.659840107, 6.629519939, 6.681240082, 6.848419666, 6.781479836, 6.553439617, 6.612339973, 6.474979877, 6.165120125, 6.077199936, 6.148180008, 5.557199955, 5.442100048, 5.164559841, 5.10860014, 5.054679871, 5.178760052, 5.093760014, 4.954919815],
+                label: '50% les plus pauvres'
+              }
+            ],
+            graphLabels: ['1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019']
+          },
+          options: generateChartAnnotationLabels(yearlyAnnotations),
+          selectorId: 1,
+          type: 'line',
+          source: 'https://wid.world/share/#0/countrytimeseries/lpfghg_p90p100_z;lpfghg_p99p100_z;lpfghg_p0p50_z/FR/2015/eu/k/p/yearly/l/false/0/120/curve/false/1990/2019'
         }
       ]
     }
