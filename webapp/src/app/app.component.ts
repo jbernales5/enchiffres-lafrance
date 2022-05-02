@@ -31,22 +31,9 @@ export class AppComponent  {
     this.modal.info({
       nzCentered: true,
       nzWidth: '800px',
-      nzTitle: 'Rajout de données en cours.',
+      nzTitle: 'Rajout de données en cours...',
       nzContent: `<h2>Ce site est toujours en cours construction</h2>
-                  <p>Nous avons encore plein d'idées et de données à choisir et traiter, nous tâchons de mettre à jour le site à jour le plus régulièrement possible.</p>
-                  <p>N'hésitez pas à proposer des statistiques que vous souhaiteriez voir apparaître !</p>`,
-      nzOnOk: () => this.desktopExperience()
-    });
-  }
-
-  desktopExperience(): void {
-    this.modal.info({
-      nzCentered: true,
-      nzWidth: '800px',
-      nzTitle: 'Expérience utilisateur',
-      nzContent: `<h2>Ce site est plus beau sur un PC ou tablette !</h2>
-                  <p>Nous travaillons pour améliorer encore l'expérience utilisateur sur mobile !</p>`,
-      nzOnOk: () => console.log('Info OK')
+                  <p>Il est aussi plus beau sur PC ou sur une tablette !</p>`
     });
   }
 

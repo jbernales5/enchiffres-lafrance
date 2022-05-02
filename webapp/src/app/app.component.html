@@ -11,7 +11,7 @@
       <div nz-col nzSpan="24">
         <h1 nz-typography>Comment participer</h1>
       </div>
-      <h5 nz-typography>Plus vous êtes nombreux à proposer des sources de données, plus ce dashboard sera complet et pertinent pour des personnes de tout horizon politique !</h5>
+      <h5 nz-typography>Plus vous êtes nombreux à proposer des sources de données, plus ce dashboard sera complet pour des individus de tout horizon politique !</h5>
       <nz-alert
         nzShowIcon
         nzType="info"
@@ -21,54 +21,71 @@
       >
       </nz-alert>
       <ng-template #welcomeDescription>
-        <p>Vous pouvez apporter vos sources de données et statistiques directement à travers le dépôt Github !</p>
-        <p>Si vous ne savez pas comment vous y prendre, n'hésitez pas à contacter par ici.</p>
+        <p>Vous pouvez apporter vos sources de données et statistiques directement !</p>
       </ng-template>
       <ng-template #welcomeAction>
       <nz-space nzDirection="vertical">
         <button *nzSpaceItem nz-button nzSize="small" nzType="primary" (click)="navigateToHref('https://github.com/jbernales5/enchiffres-lafrance')">Je participe !</button>
       </nz-space>
     </ng-template>
-      <div *ngFor="let section of dataset" style="margin-top: 50px;">
-        <div nz-col nzSpan="24">
-          <h1 nz-typography>{{section.sectionTitle}}</h1>
-        </div>
-        <div *ngIf="section.graphsBySubsection.length === 0">
-          <nz-alert
-            nzShowIcon
-            nzType="info"
-            nzMessage="Ça arrive bientôt !"
-            nzDescription="N'hésitez pas à proposer des sources de données et statistiques vous semblant pertinentes :)"
-          >
-          </nz-alert>
-        </div>
-        <div *ngIf="section.graphsBySubsection.length > 0">
-          <div nz-row style="margin-top: 10px;" *ngFor="let graphSubsection of section.graphsBySubsection">
-            <div nz-col nzSpan="24">
-              <nz-card style="width: 100%;" nzTitle="{{graphSubsection.subsectionTitle}}" [nzExtra]="extraTemplateLoyers">
-                <nz-card-tab>
-                  <nz-tabset nzSize="large" [(nzSelectedIndex)]="graphSubsection.selectorValue">
-                    <nz-tab *ngFor="let graph of graphSubsection.graphs;" nzTitle="{{graph.graphTitle}}"></nz-tab>
-                  </nz-tabset>
-                </nz-card-tab>
-                <div class="chartjs-graph">
-                  <canvas baseChart height="100"
-                    [datasets]="graphSubsection.graphs[graphSubsection.selectorValue].graph.graphData"
-                    [labels]="graphSubsection.graphs[graphSubsection.selectorValue].graph.graphLabels"
-                    [options]="graphSubsection.graphs[graphSubsection.selectorValue].options"
-                    [legend]="lineChartLegend"
-                    [type]="graphSubsection.graphs[graphSubsection.selectorValue].type"
-                    [plugins]="lineChartPlugins">
-                  </canvas>
-                </div>
-              </nz-card>
-              <ng-template #extraTemplateLoyers>
-                <a href="{{graphSubsection.graphs[graphSubsection.selectorValue].source}}">Source du graphe {{graphSubsection.selectorValue + 1}}</a>
-              </ng-template>
-            </div>
+    <div *ngFor="let section of dataset" style="margin-top: 50px;">
+      <nz-divider></nz-divider>
+      <div nz-col nzSpan="24">
+        <h1 nz-typography>{{section.sectionTitle}}</h1>
+      </div>
+      <div *ngIf="section.graphsBySubsection.length === 0">
+        <nz-alert
+          nzShowIcon
+          nzType="info"
+          nzMessage="Ça arrive bientôt !"
+          nzDescription="N'hésitez pas à proposer des sources de données et statistiques vous semblant pertinentes :)"
+        >
+        </nz-alert>
+      </div>
+      <div *ngIf="section.graphsBySubsection.length > 0">
+        <div nz-row style="margin-top: 10px;" *ngFor="let graphSubsection of section.graphsBySubsection">
+          <div nz-col nzSpan="24">
+            <nz-card style="width: 100%;" nzTitle="{{graphSubsection.subsectionTitle}}" [nzExtra]="extraTemplateLoyers">
+              <nz-card-tab>
+                <nz-tabset nzSize="large" [(nzSelectedIndex)]="graphSubsection.selectorValue">
+                  <nz-tab *ngFor="let graph of graphSubsection.graphs;" nzTitle="{{graph.graphTitle}}"></nz-tab>
+                </nz-tabset>
+              </nz-card-tab>
+              <div class="chartjs-graph">
+                <canvas baseChart height="100"
+                  [datasets]="graphSubsection.graphs[graphSubsection.selectorValue].graph.graphData"
+                  [labels]="graphSubsection.graphs[graphSubsection.selectorValue].graph.graphLabels"
+                  [options]="graphSubsection.graphs[graphSubsection.selectorValue].options"
+                  [legend]="lineChartLegend"
+                  [type]="graphSubsection.graphs[graphSubsection.selectorValue].type"
+                  [plugins]="lineChartPlugins">
+                </canvas>
+              </div>
+            </nz-card>
+            <ng-template #extraTemplateLoyers>
+              <a href="{{graphSubsection.graphs[graphSubsection.selectorValue].source}}">Source du graphe {{graphSubsection.selectorValue + 1}}</a>
+            </ng-template>
           </div>
         </div>
       </div>
+    </div>
+    <nz-alert
+      nzShowIcon
+      nzType="info"
+      nzMessage="Vous ne trouvez pas ce que vous cherchez?"
+      [nzDescription]="welcomeDescription"
+      [nzAction]="welcomeAction"
+      style="margin-top: 30px;"
+    >
+    </nz-alert>
+    <ng-template #welcomeDescription>
+      <p>Vous pouvez apporter vos sources de données et statistiques directement !</p>
+    </ng-template>
+    <ng-template #welcomeAction>
+      <nz-space nzDirection="vertical">
+        <button *nzSpaceItem nz-button nzSize="small" nzType="primary" (click)="navigateToHref('https://github.com/jbernales5/enchiffres-lafrance')">Je participe !</button>
+      </nz-space>
+    </ng-template>
     </div>
   </nz-content>
   <nz-footer>Made with <i nz-icon nzType="heart" nzTheme="fill"></i> by <a href="https://github.com/jbernales5">Jonathan Bernales</a>. I use <a href="https://ng.ant.design">Ant Design</a> & <a href="https://github.com/valor-software/ng2-charts#readme">ng2-charts</a>.</nz-footer>
